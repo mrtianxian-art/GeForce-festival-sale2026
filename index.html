@@ -1002,6 +1002,154 @@ grid-template-columns: repeat(2, 1fr); /* 关键：每一排显示两个 */
         justify-content: center; /* 社交图标居中 */
     }
 }
+
+    .wtb-wrapper {
+    background: white; 
+    padding: 60px 20px;
+    text-align: center;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.wtb-header {
+    color: var(--dark);
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 45px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+
+/* 标题下方的装饰短线 (NVIDIA 绿) */
+.wtb-header::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: var(--primary);
+    margin: 10px auto 0;
+}
+
+/* --- 5格网格布局 --- */
+.wtb-grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 强制5列 */
+    gap: 15px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* --- 每个渠道的卡片样式 (极简、白、科技感) --- */
+.wtb-item {
+    background: #cfcfcf; /* 保持纯白，衬托所有颜色 Logo */
+    border: 3px solid #979797; /* 默认极淡的灰色边框 */
+    border-radius: 4px; /* 极客风用小圆角或直角 */
+    height: 160px; /* 固定高度 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    /* 默认投影，增加立体感 */
+    box-shadow: 0 10px 10px rgba(0,0,0,0.05); 
+}
+
+/* --- Hover 时的特效 (荧光霓虹呼吸灯) --- */
+.wtb-item:hover {
+    transform: translateY(-8px); /* 卡片浮起 */
+    border-color: #76b900; /* 边框变成亮青色 */
+    /* 重点：亮青色呼吸霓虹效果 */
+    box-shadow: 0 10px 30px rgba(0, 255, 204, 0.2), 
+                0 0 15px rgba(0, 255, 204, 0.1),
+                inset 0 0 10px rgba(0, 255, 204, 0.05); 
+}
+
+/* --- Logo 容器 (白色凹槽舞台) --- */
+.logo-stage {
+    width: 85%;
+    height: 60px; /* Logo 区域固定高度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    /* 强制 Logo 所在区域保持纯白 */
+    background: #cfcfcf; 
+    border-radius: 2px;
+    /* 增加微弱的内阴影，营造“放置在干净凹槽中”的感觉 */
+    box-shadow: 20px rgba(0,0,0,0.02);
+}
+
+.logo-stage img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 保持 Logo 比例且不拉伸 */
+    transition: transform 0.3s ease;
+}
+
+.wtb-item:hover .logo-stage img {
+    transform: scale(1.08); /* 悬停时 Logo 呼吸式微放大 */
+}
+
+/* --- 购买行动按钮 --- */
+.buy-action {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--dark); /* 默认深色文字 */
+    border: 1px solid var(--dark); /* 默认深色边框 */
+    padding: 6px 18px;
+    border-radius: 20px; /* 小胶囊按钮，更现代 */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+/* 悬停时，按钮也激发为亮青色霓虹态 */
+.wtb-item:hover .buy-action {
+    background: #76b900; /* 背景变亮青色 */
+    color: var(--dark); /* 文字变白 */
+    border-color: #76b900; /* 边框变亮青色 */
+    font-weight: 800;
+}
+
+/* --- 装饰性赛博线条效果 --- */
+.wtb-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #76b900;
+    transition: width 0.3s ease;
+    opacity: 0;
+}
+
+.wtb-item:hover::before {
+    width: 100%;
+    opacity: 1;
+}
+
+/* --- 响应式适配 --- */
+@media (max-width: 900px) {
+    .wtb-grid-5 {
+        grid-template-columns: repeat(3, 1fr); /* 屏幕窄时变为3列 */
+        gap: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .wtb-grid-5 {
+        grid-template-columns: repeat(2, 1fr); /* 手机端变为2列 */
+    }
+    .wtb-item {
+        height: 130px;
+    }
+}
 </style>
 
 <!DOCTYPE html>
@@ -1041,26 +1189,45 @@ grid-template-columns: repeat(2, 1fr); /* 关键：每一排显示两个 */
         </div>
 </div>
 
-        <section id="about" class="section">
-        <div class="container">
-            <h2>where to buy</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>顶尖讲师</h3>
-                    <p>来自 Google, Meta 和 OpenAI 的核心团队分享。</p>
-                </div>
-                <div class="card">
-                    <h3>实战工作坊</h3>
-                    <p>手把手教你如何部署下一代 AI 模型。</p>
-                </div>
-                <div class="card">
-                    <h3>社交网络</h3>
-                    <p>与超过 500 位行业精英面对面交流。</p>
-                </div>
+<div class="wtb-wrapper">
+    <h3 class="wtb-header">WHERE TO BUY</h3>
+    <div class="wtb-grid-5">
+        <a href="https://brightstarcomp.com/products/colorful-igame-geforce-rtx-5060-ti-ultra-w-duo-oc-8gb-v-8gb-gddr7-graphic-card" class="wtb-item" target="_blank">
+            <div class="logo-stage">
+                <img src="/picture/brightstar.png" alt="Brightstar">
             </div>
-        </div>
-    </section>
+            <div class="buy-action">BUY NOW</div>
+        </a>
 
+        <a href="https://emarque.co/products/colorful-igame-geforce-rtx-5060-ti-ultra-w-duo-oc-8gb-v-8gb-gddr7-graphic-card" class="wtb-item" target="_blank">
+            <div class="logo-stage">
+                <img src="/picture/EMARQUE.png" alt="EMARQUE">
+            </div>
+            <div class="buy-action">BUY NOW</div>
+        </a>
+
+        <a href="https://shopee.com.my/product/20108462/28683706476/" class="wtb-item" target="_blank">
+            <div class="logo-stage">
+                <img src="/picture/JUSTit.png" alt="JUST IT">
+            </div>
+            <div class="buy-action">BUY NOW</div>
+        </a>
+
+        <a href="https://www.store.pcimage.com.my/colorful-igame-geforce-rtx-5060-ti-ultra-w-duo-oc-8gb-v-graphics-card" class="wtb-item" target="_blank">
+            <div class="logo-stage">
+                <img src="/picture/PCIMAGE.png" alt="PC IMAGE">
+            </div>
+            <div class="buy-action">BUY NOW</div>
+        </a>
+
+        <a href="https://www.tmt.my/products/colorful-igame-geforce-rtx-5060-ti-ultra-w-duo-oc-8gb-v" class="wtb-item" target="_blank">
+            <div class="logo-stage">
+                <img src="/picture/TMT.png" alt="TMT">
+            </div>
+            <div class="buy-action">BUY NOW</div>
+        </a>
+    </div>
+</div>
 
 
 
@@ -1234,6 +1401,7 @@ grid-template-columns: repeat(2, 1fr); /* 关键：每一排显示两个 */
 
 </body>
 </html>
+
 
 
 
